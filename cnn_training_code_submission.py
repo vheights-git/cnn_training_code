@@ -459,30 +459,19 @@ def stop_profiler():
     else:
         print("Profiler is not running.")
 
+# Training the neural network
+%%time
+cnn_history = cnn_model.fit(
+    x = model_train_generator,
+    steps_per_epoch = TR_STEPS,
+    epochs = 10,
+    validation_data = model_validation_generator,
+    validation_steps = VA_STEPS,
+    verbose = 1,
+    callbacks=[checkpoint_epoch_save, checkpoint_learning_rate, early_stopping]
+)
+
 # Commented out IPython magic to ensure Python compatibility.
-# # Training the neural network
-# 
-# %%time
-# # stop_profiler()
-# # KBackend.clear_session()
-# # Start the profiler
-# # start_profiler('histopathologic-cancer-detection/logdir')
-# 
-# cnn_history = cnn_model.fit(
-#     x = model_train_generator,
-#     steps_per_epoch = TR_STEPS,
-#     epochs = 10,
-#     validation_data = model_validation_generator,
-#     validation_steps = VA_STEPS,
-#     verbose = 1,
-#     callbacks=[checkpoint_epoch_save, checkpoint_learning_rate, early_stopping]
-# )
-# 
-# # Check and stop the profiler
-# # stop_profiler()
-# 
-# # Clear the session
-# # KBackend.clear_session()
 
 # Saving the models and history
 
